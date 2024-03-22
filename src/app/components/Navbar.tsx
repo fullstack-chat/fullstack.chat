@@ -17,7 +17,14 @@ function Navbar() {
 				<img alt="fullstack.chat logo" src="/assets/images/logo-2.png" className="logo max-h-[40px]" />
 			</div>
 
-			<div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg">
+				{ isSignedIn &&
+					<div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg">
+						<Link href="/profile">Profile</Link>
+						<UserButton />
+					</div>
+				}
+
+			{/* <div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg">
 				{ isSignedIn ?
 				<>
 					<Link href="/profile">Profile</Link>
@@ -25,7 +32,7 @@ function Navbar() {
 				</> :
 					<SignInButton className='bg-gradient-to-b from-zinc-800 to-zinc-800 hover:from-zinc-700 hover:to-zinc-800 p-2 rounded transition-all' />
 				}
-			</div>
+			</div> */}
 
 			{/* {!isMenuShown && (
 				<button
