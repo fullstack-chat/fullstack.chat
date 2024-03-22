@@ -22,7 +22,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <div className="flex justify-center text-white md:mx-0 m-2">
-            <div className="flex flex-col w-full max-w-[1280px]">
+            <div className="flex flex-col w-full max-w-[960px] px-2">
               <Navbar />
               { children }
               <Footer />

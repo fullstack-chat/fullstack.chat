@@ -24,67 +24,12 @@ export default function Home() {
           Our mission:
         </div>
         <div className="flex items-center justify-center text-6xl font-extrabold text-center">
-          Empower independent developers to launch successful products.
+          Create a safe space for developers of all backgrounds to learn, grow, and build friendships.
         </div>
-      </div>
-
-      <div className="flex flex-col md:grid md:grid-cols-3 gap-4 mx-4 my-20">
-        <div className="col-span-3 text-xl font-semibold">
-          What we do:
-        </div>
-        <UiCard title="X Space">
-          <div className="mb-2">
-            We host a bi-weekly space on X where we interview developers building their own products. Join in to learn how others do it, and stick around to ask questions!
-          </div>
-          <a href="https://twitter.com/fullstackchat" target="_blank" className="pb-1 border-b-2 border-[#ffffff95] hover:border-[#00a8e8] transition-all">
-            Follow @fullstackchat
-          </a>
-        </UiCard>
-        <UiCard title="Newsletter">
-          <div className="mb-2">
-            Insights currated from leading SaaS builders delivered directly to your inbox. Our newsletter is sent out every other week, also includes community updates and milestones submitted by members.
-          </div>
-          <a href="https://fullstack-chat.beehiiv.com/subscribe" target="_blank" className="pb-1 border-b-2 border-[#ffffff95] hover:border-[#00a8e8] transition-all">
-            Subscribe
-          </a>
-        </UiCard>
-        <UiCard title="Community">
-          <div className="mb-2">
-            The fullstack.chat Discord community is filled with other builders with the goal of launching and operating successful products.
-          </div>
-          <a href="https://discord.gg/NsD4knqTee" target="_blank" className="pb-1 border-b-2 border-[#ffffff95] hover:border-[#00a8e8] transition-all">
-            Join the Discord
-          </a>
-        </UiCard>
-        {/* <UiCard title="Blog">
-          <div>
-            info here about blog
-          </div>
-          <div>
-            go to blog
-          </div>
-        </UiCard> */}
-      </div>
-
-      <div className="mx-4 my-20">
-        <UiCard title="Most recent space" className="grid md:grid-cols-3 gap-2">
-          <div className="col-span-2">
-            <div>
-              <p>In the most recent Space, <a href="https://twitter.com/brianmmdev">Brian</a> spoke with Matias Hernandez who's building an AI-powered speech-to-text Saas that runs directly from the browser.</p>
-              <p>We discuss his target audience, the tech stack, and various challenges he's run into building his first product he intends to launch and be used by others!</p>
-            </div>
-            <a href="https://youtu.be/3Jyl2IemdVY" target="_blank" className="pb-1 border-b-2 border-[#ffffff95] hover:border-[#00a8e8] transition-all">
-              Listen on YouTube
-            </a>
-          </div>
-          <div className="flex justify-center">
-            <img src="/assets/images/spaces/1.png" className="rounded-xl border-t-2 border-[#222222]" />
-          </div>
-        </UiCard>
       </div>
 
       <div className="flex flex-col md:grid grid-cols-3 gap-4 mx-4 my-20">
-        <div className="col-span-3 text-xl font-semibold">
+        <div className="col-span-3 flex items-center justify-center text-xl text-center uppercase">
           Core principles:
         </div>
         <UiCard title="Authenticity and integrity">
@@ -96,6 +41,12 @@ export default function Home() {
         <UiCard title="Willing altruism">
           We're all here with a common goal. Be willing to lift others up, a high tide raises all boats.
         </UiCard>
+      </div>
+
+      <div className="mx-4 my-10 flex items-center justify-center">
+        <button className="bg-gradient-to-b from-[#8A8DFF] to-[#5865F2] hover:to-[#8A8DFF] hover:shadow-lg rounded px-4 py-2 text-xl">
+          Join the Discord
+        </button>
       </div>
     </main>
   );
