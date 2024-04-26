@@ -18,8 +18,9 @@ function Navbar() {
 			</div>
 
 				{ isSignedIn &&
-					<div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg">
-						<Link href="/profile">Profile</Link>
+					<div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg items-center">
+						<Link href="/me">My Profile</Link>
+						<Link href="/profiles">Profiles</Link>
 						<UserButton />
 					</div>
 				}

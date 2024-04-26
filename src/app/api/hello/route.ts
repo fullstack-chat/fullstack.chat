@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { clerkClient } from '@clerk/nextjs';
+import { clerkClient } from '@clerk/nextjs/server';
 
 export async function GET(req: Request) {
-  const authStatus = await clerkClient.authenticateRequest({ request: req });
+  const authStatus = await clerkClient.authenticateRequest(req);
   const auth = authStatus.toAuth()
   const userid = auth?.sessionClaims?.sub
   var user = await clerkClient.users.getUser(userid as string);

@@ -10,4 +10,5 @@ export type UserInfo = {
   twitch?: string
   tagline?: string
   imageUrl?: string
+  isPublic?: boolean
 }

@@ -1,21 +1,18 @@
 'use client'
 
-import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
-import { GetServerSideProps } from "next";
-import Image from "next/image";
 import { useEffect } from "react";
 import UiCard from "./components/UiCard";
 
 export default function Home() {
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('/api/hello')
-      const data = await response.json()
-      console.log(data)
-    }
-    fetchData()
-  }, [])
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await fetch('/api/hello')
+  //     const data = await response.json()
+  //     console.log(data)
+  //   }
+  //   fetchData()
+  // }, [])
 
   return (
     <main>

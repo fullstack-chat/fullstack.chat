@@ -1,7 +1,7 @@
 'use server'
 
 import FaunaService from "./services/FaunaService"
-import { auth, currentUser } from '@clerk/nextjs'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import { UserInfo } from './models'
 
 export async function getUserInfo(): Promise<UserInfo | undefined> {
@@ -43,9 +43,9 @@ export async function getPublicProfiles() {
   // get data from fauna based on user id
   const svc = new FaunaService(process.env.FAUNA_SECRET as string)
   const data = await svc.listRecords('users')
-  console.log(data)
+  const users = data.filter((d: any) => d.isPublic)
+  return users
 }
-
 
 export type UpdateUserInfoParams = {
   website?: string
@@ -55,6 +55,7 @@ export type UpdateUserInfoParams = {
   threads?: string
   twitch?: string
   tagline?: string
+  isPublic?: boolean
 }
 
 export async function updateUserInfo(faunaId: string, params: UpdateUserInfoParams) {
@@ -62,8 +63,3 @@ export async function updateUserInfo(faunaId: string, params: UpdateUserInfoPara
   const data = await svc.updateRecord('users', faunaId, {...params})
   console.log(data)
 }
-
-// {
-//   userId: "385635938241609729",
-//   username: "brianmm02"
-// }
