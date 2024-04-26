@@ -16,6 +16,7 @@ function ProfilePage() {
   const [youtube, setYoutube] = useState<string>()
   const [tagline, setTagline] = useState<string>()
   const [isPublic, setIsPublic] = useState<boolean>(false)
+  const [imageUrl, setImageUrl] = useState<string>()
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
@@ -30,6 +31,7 @@ function ProfilePage() {
         setTwitch(userInfo.twitch)
         setYoutube(userInfo.youtube)
         setTagline(userInfo.tagline)
+        setImageUrl(userInfo.imageUrl)
         setIsPublic(userInfo.isPublic ? true : false)
       }
       setIsLoading(false)
@@ -47,7 +49,8 @@ function ProfilePage() {
       threads,
       twitch,
       tagline,
-      isPublic
+      isPublic,
+      imageUrl
     })
   }
 

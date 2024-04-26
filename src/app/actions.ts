@@ -31,7 +31,8 @@ export async function getUserInfo(): Promise<UserInfo | undefined> {
       linkedin: data.linkedin,
       threads: data.threads,
       twitch: data.twitch,
-      tagline: data.tagline
+      tagline: data.tagline,
+      isPublic: data.isPublic
     }
     return ui
   } else {
@@ -56,6 +57,7 @@ export type UpdateUserInfoParams = {
   twitch?: string
   tagline?: string
   isPublic?: boolean
+  imageUrl?: string
 }
 
 export async function updateUserInfo(faunaId: string, params: UpdateUserInfoParams) {
