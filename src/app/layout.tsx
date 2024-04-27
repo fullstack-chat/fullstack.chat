@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider, UserButton } from '@clerk/nextjs'
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
+          <Toaster/>
           <div className="flex justify-center text-white md:mx-0 m-2">
             <div className="flex flex-col w-full max-w-[960px] px-2">
               <Navbar />

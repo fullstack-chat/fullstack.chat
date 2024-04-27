@@ -16,7 +16,7 @@ function UserProfileCard({ userInfo }: Params) {
         height={75}
         alt={''}
         className='rounded-full' />
-      {/* <div className='italic'>users name here</div> */}
+      <div className='font-bold'>{ userInfo.displayName }</div>
       <div className='text-sm'>@{ userInfo.username }</div>
       <div className=''>{ userInfo.tagline }</div>
     </UiCard>

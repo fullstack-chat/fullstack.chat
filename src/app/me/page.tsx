@@ -1,10 +1,12 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { getUserInfo, updateUserInfo } from '../actions'
 import { UserInfo } from '../models'
 import UiCard from '../components/UiCard'
 import Image from 'next/image'
 import LoadingView from '../views/LoadingView'
+import { configurableRoles } from '../data'
+import toast from 'react-hot-toast'
 
 function ProfilePage() {
   const [userInfo, setUserInfo] = useState<UserInfo>()
@@ -18,6 +20,9 @@ function ProfilePage() {
   const [isPublic, setIsPublic] = useState<boolean>(false)
   const [imageUrl, setImageUrl] = useState<string>()
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [selectedRoles, setSelectedRoles] = useState<string[]>([])
+  const [isSaving, setIsSaving] = useState<boolean>(false)
+  const [displayName, setDisplayName] = useState<string>()
 
   useEffect(() => {
     async function fetchData() {
@@ -33,6 +38,8 @@ function ProfilePage() {
         setTagline(userInfo.tagline)
         setImageUrl(userInfo.imageUrl)
         setIsPublic(userInfo.isPublic ? true : false)
+        userInfo.selectedRoles && setSelectedRoles(userInfo.selectedRoles)
+        setDisplayName(userInfo.displayName)
       }
       setIsLoading(false)
     }
@@ -41,17 +48,49 @@ function ProfilePage() {
 
   async function save() {
     if(!userInfo) return
-    await updateUserInfo(userInfo?.faunaId, {
-      website,
-      twitter,
-      youtube,
-      linkedin,
-      threads,
-      twitch,
-      tagline,
-      isPublic,
-      imageUrl
-    })
+    toast.promise(
+      _save(),
+        {
+          loading: 'Saving...',
+          success: <b>Settings saved!</b>,
+          error: <b>Could not save.</b>,
+        }
+    );
+  }
+
+  async function _save() {
+    if(!userInfo) return
+    try {
+      setIsSaving(true)
+      await updateUserInfo(userInfo?.faunaId, {
+        website,
+        twitter,
+        youtube,
+        linkedin,
+        threads,
+        twitch,
+        tagline,
+        isPublic,
+        imageUrl,
+        displayName,
+        username: userInfo.username
+      }, selectedRoles)
+    } catch (err) {
+      console.error(err)
+      throw err
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  function handleRoleToggled(roleId: string, isChecked: boolean): void {
+    const r: string[] = selectedRoles
+    if(isChecked) {
+      r.push(roleId)
+    } else {
+      r.splice(r.indexOf(roleId), 1)
+    }
+    setSelectedRoles([...r])
   }
 
   return (
@@ -67,6 +106,13 @@ function ProfilePage() {
                 height={75}
                 alt={''}
                 className='rounded-full' />
+              <div className='flex flex-col gap-2'>
+                <label>Display name</label>
+                <input type="text"
+                  value={displayName}
+                  onChange={e => setDisplayName(e.target.value)}
+                  className='text-black rounded p-1' />
+              </div>
               <div className='flex flex-col gap-2'>
                 <label>Tagline</label>
                 <textarea
@@ -126,9 +172,21 @@ function ProfilePage() {
               </div>
             </UiCard>
           </div>
+          <UiCard title='Roles'>
+            {configurableRoles.map(role => (
+              <div key={role.id} className='flex gap-2'>
+                <input type="checkbox"
+                  checked={selectedRoles?.includes(role.id)}
+                  onChange={e => handleRoleToggled(role.id, e.target.checked)}
+                  className='text-black rounded p-1' />
+                <label>{role.name}</label>
+              </div>
+            ))}
+          </UiCard>
           <div className='flex col-span-3'>
             <button onClick={() => save()}
-              className='bg-gradient-to-b from-zinc-800 to-zinc-800 hover:from-zinc-700 hover:to-zinc-800 p-2 rounded transition-all'>
+              disabled={isSaving}
+              className='bg-gradient-to-b from-zinc-800 to-zinc-800 hover:from-zinc-700 hover:to-zinc-800 p-2 rounded transition-all disabled:cursor-not-allowed'>
               Save
             </button>
           </div>
