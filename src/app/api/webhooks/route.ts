@@ -5,6 +5,10 @@ const handler = createWebhooksHandler({
     // Create a user in the database
     console.log("user created!", payload)
   },
+  onUserUpdated: async (payload) => {
+    // Update a user in the database
+    console.log("user updated!", payload)
+  },
   onSessionCreated: async (payload) => {
     // Create a session in the database
     console.log("session created!", payload)
