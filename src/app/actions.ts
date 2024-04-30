@@ -22,7 +22,6 @@ export async function getUserInfo(): Promise<UserInfo | undefined> {
   if(discordId) {
     const member = await getDiscordMember(discordId)
     if(!member) {
-      console.log(member)
       return
     }
 
@@ -65,7 +64,7 @@ export async function getDiscordMember(discordUserId: string): Promise<DiscordMe
       "Authorization": `Bot ${process.env.DISCORD_BOT_TOKEN}`
     }
   })
-  if(memberRes.status === 401) {
+  if(memberRes.status === 404) {
     return
   }
   return await memberRes.json() as DiscordMember
