@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import posthog from "posthog-js";
 
 const isProtectedRoute = createRouteMatcher([
   '/me(.*)',
@@ -6,6 +7,11 @@ const isProtectedRoute = createRouteMatcher([
 
 export default clerkMiddleware(async (auth, req) => {
   if (isProtectedRoute(req)) auth().protect();
+
+  const { userId } = auth();
+  if(userId) {
+    posthog.identify(userId);
+  }
 });
 
 export const config = {

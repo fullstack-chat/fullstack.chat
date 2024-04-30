@@ -1,19 +1,9 @@
 'use client'
 
-import { useEffect } from "react";
+import JoinButton from "./components/JoinButton";
 import UiCard from "./components/UiCard";
 
 export default function Home() {
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const response = await fetch('/api/hello')
-  //     const data = await response.json()
-  //     console.log(data)
-  //   }
-  //   fetchData()
-  // }, [])
-
   return (
     <main>
       <div className="mt-20 p-4 min-h-[20vh]">
@@ -41,9 +31,7 @@ export default function Home() {
       </div>
 
       <div className="mx-4 my-10 flex items-center justify-center">
-        <a href="https://discord.gg/NsD4knqTee" target="_blank" className="bg-gradient-to-b from-[#8A8DFF] to-[#5865F2] hover:to-[#8A8DFF] hover:shadow-lg rounded px-4 py-2 text-xl">
-          Join the Discord
-        </a>
+        <JoinButton />
       </div>
     </main>
   );

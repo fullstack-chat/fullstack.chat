@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"
-import { SignIn, SignInButton, UserProfile, useUser, UserButton } from '@clerk/nextjs';
+import { SignIn, SignInButton, UserProfile, useUser, UserButton, SignedIn, SignedOut } from '@clerk/nextjs';
 
 function Navbar() {
 	const [isMenuShown, setIsMenuShown] = useState(false);
@@ -12,18 +12,19 @@ function Navbar() {
 
 	return (
 		<nav className="flex item-center align-center justify-between py-4 px-4">
-
 			<div className="w-[80px]">
 				<img alt="fullstack.chat logo" src="/assets/images/logo-2.png" className="logo max-h-[40px]" />
 			</div>
-
-				{ isSignedIn &&
-					<div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg items-center">
-						<Link href="/me">My Profile</Link>
-						<Link href="/profiles">Profiles</Link>
-						<UserButton />
-					</div>
-				}
+			<SignedIn>
+				<div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg items-center">
+					<Link href="/me">My Profile</Link>
+					<Link href="/profiles">Profiles</Link>
+					<UserButton />
+				</div>
+			</SignedIn>
+			<SignedOut>
+				<Link href="/sign-in">Sign In</Link>
+			</SignedOut>
 
 			{/* <div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg">
 				{ isSignedIn ?

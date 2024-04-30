@@ -7,6 +7,7 @@ import Image from 'next/image'
 import LoadingView from '../views/LoadingView'
 import { configurableRoles } from '../data'
 import toast from 'react-hot-toast'
+import JoinButton from '../components/JoinButton'
 
 function ProfilePage() {
   const [userInfo, setUserInfo] = useState<UserInfo>()
@@ -23,6 +24,7 @@ function ProfilePage() {
   const [selectedRoles, setSelectedRoles] = useState<string[]>([])
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const [displayName, setDisplayName] = useState<string>()
+  const [memberDoesNotExist, setMemberDoesNotExist] = useState<boolean>(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -40,6 +42,8 @@ function ProfilePage() {
         setIsPublic(userInfo.isPublic ? true : false)
         userInfo.selectedRoles && setSelectedRoles(userInfo.selectedRoles)
         setDisplayName(userInfo.displayName)
+      } else {
+        setMemberDoesNotExist(true)
       }
       setIsLoading(false)
     }
@@ -48,6 +52,10 @@ function ProfilePage() {
 
   async function save() {
     if(!userInfo) return
+    if(!displayName) {
+      toast.error('Display name is required.')
+      return
+    }
     toast.promise(
       _save(),
         {
@@ -96,7 +104,19 @@ function ProfilePage() {
   return (
     <div className='flex flex-col gap-4'>
       {isLoading && <LoadingView />}
-      {!isLoading && (
+      {memberDoesNotExist && (
+        <UiCard outerClassName='mt-10 mb-10'>
+          <div className="flex flex-col gap-4 items-center p-4 mb-2">
+            <div>
+              The user does not exist in the Discord server. Please join before modifying your profile:
+            </div>
+            <div>
+              <JoinButton />
+            </div>
+          </div>
+        </UiCard>
+      )}
+      {!isLoading && !memberDoesNotExist && (
         <>
           <div className='grid grid-cols-3 gap-4'>
             <UiCard className='flex flex-col gap-4' title={userInfo?.username}>
@@ -107,7 +127,7 @@ function ProfilePage() {
                 alt={''}
                 className='rounded-full' />
               <div className='flex flex-col gap-2'>
-                <label>Display name</label>
+                <label>Display name<span className='align-super text-red-400'>*</span></label>
                 <input type="text"
                   value={displayName}
                   onChange={e => setDisplayName(e.target.value)}
@@ -116,14 +136,14 @@ function ProfilePage() {
               <div className='flex flex-col gap-2'>
                 <label>Tagline</label>
                 <textarea
-                  value={userInfo?.tagline}
+                  value={tagline}
                   onChange={e => setTagline(e.target.value)}
                   className='text-black rounded p-1' />
               </div>
               <div className='flex flex-col gap-2 items-start'>
                 <label>Display on Profiles?</label>
                 <input type="checkbox"
-                  checked={userInfo?.isPublic}
+                  checked={isPublic}
                   onChange={e => setIsPublic(e.target.checked)} />
               </div>
             </UiCard>

@@ -18,22 +18,28 @@ export async function getUserInfo(): Promise<UserInfo | undefined> {
       discordId = discordAccountInfo.externalId
     }
   }
-  if(discordId) {
-    const svc = new FaunaService(process.env.FAUNA_SECRET as string)
-    const data = await svc.getRecordByIndex('idxUserByUserId', discordId)
 
+  if(discordId) {
     const member = await getDiscordMember(discordId)
+    if(!member) {
+      console.log(member)
+      return
+    }
+
     const selectedRoles: string[] = []
     configurableRoles.forEach(role => {
-      if(member.roles.includes(role.id)) {
+      if(member?.roles?.includes(role.id)) {
         selectedRoles.push(role.id)
       }
     })
 
+    const svc = new FaunaService(process.env.FAUNA_SECRET as string)
+    const data = await svc.getRecordByIndex('idxUserByUserId', discordId)
+
     const ui: UserInfo = {
       imageUrl: cu?.imageUrl,
       userId: data.userId,
-      username: member.user.global_name,
+      username: member?.user?.username,
       displayName: data.displayName,
       faunaId: data.id,
       website: data.website,
@@ -52,13 +58,16 @@ export async function getUserInfo(): Promise<UserInfo | undefined> {
   }
 }
 
-export async function getDiscordMember(discordUserId: string): Promise<DiscordMember> {
+export async function getDiscordMember(discordUserId: string): Promise<DiscordMember | undefined> {
   const memberRes = await fetch(`https://discord.com/api/guilds/${process.env.GUILD_ID}/members/${discordUserId}`, {
     method: 'GET',
     headers: {
       "Authorization": `Bot ${process.env.DISCORD_BOT_TOKEN}`
     }
   })
+  if(memberRes.status === 401) {
+    return
+  }
   return await memberRes.json() as DiscordMember
 }
 

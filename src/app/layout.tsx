@@ -5,6 +5,7 @@ import { ClerkProvider, UserButton } from '@clerk/nextjs'
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Toaster } from "react-hot-toast";
+import { CSPostHogProvider } from './providers'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,16 +22,18 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>
-          <Toaster/>
-          <div className="flex justify-center text-white md:mx-0 m-2">
-            <div className="flex flex-col w-full max-w-[960px] px-2">
-              <Navbar />
-              { children }
-              <Footer />
+        <CSPostHogProvider>
+          <body className={inter.className}>
+            <Toaster/>
+            <div className="flex justify-center text-white md:mx-0 m-2">
+              <div className="flex flex-col w-full max-w-[960px] px-2">
+                <Navbar />
+                { children }
+                <Footer />
+              </div>
             </div>
-          </div>
-        </body>
+          </body>
+        </CSPostHogProvider>
       </html>
     </ClerkProvider>
   );
