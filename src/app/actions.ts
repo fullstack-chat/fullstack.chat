@@ -33,7 +33,12 @@ export async function getUserInfo(): Promise<UserInfo | undefined> {
     })
 
     const svc = new FaunaService(process.env.FAUNA_SECRET as string)
-    const data = await svc.getRecordByIndex('idxUserByUserId', discordId)
+    let data: any;
+    try {
+      data = await svc.getRecordByIndex('idxUserByUserId', discordId)
+    } catch (err) {
+      return
+    }
 
     const ui: UserInfo = {
       imageUrl: cu?.imageUrl,

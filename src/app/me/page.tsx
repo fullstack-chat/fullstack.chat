@@ -108,7 +108,7 @@ function ProfilePage() {
         <UiCard outerClassName='mt-10 mb-10'>
           <div className="flex flex-col gap-4 items-center p-4 mb-2">
             <div>
-              The user does not exist in the Discord server. Please join before modifying your profile:
+              The user does not exist in the Discord server. Please join and introduce yourself before modifying your profile:
             </div>
             <div>
               <JoinButton />
