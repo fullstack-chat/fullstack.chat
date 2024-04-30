@@ -8,23 +8,22 @@ import { SignIn, SignInButton, UserProfile, useUser, UserButton, SignedIn, Signe
 
 function Navbar() {
 	const [isMenuShown, setIsMenuShown] = useState(false);
-	const { isSignedIn } = useUser();
 
 	return (
 		<nav className="flex item-center align-center justify-between py-4 px-4">
 			<div className="w-[80px]">
 				<img alt="fullstack.chat logo" src="/assets/images/logo-2.png" className="logo max-h-[40px]" />
 			</div>
-			<SignedIn>
-				<div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg items-center">
+			<div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg items-center">
+				<Link href="/profiles">Profiles</Link>
+				<SignedIn>
 					<Link href="/me">My Profile</Link>
-					<Link href="/profiles">Profiles</Link>
 					<UserButton />
-				</div>
-			</SignedIn>
-			<SignedOut>
-				<Link href="/sign-in">Sign In</Link>
-			</SignedOut>
+				</SignedIn>
+				<SignedOut>
+					<Link href="/sign-in">Sign In</Link>
+				</SignedOut>
+			</div>
 
 			{/* <div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg">
 				{ isSignedIn ?
