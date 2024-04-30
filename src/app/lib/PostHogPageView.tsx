@@ -22,22 +22,11 @@ const PostHogPageView = () => {
       posthog.capture('$pageview', {
         $current_url: url,
       });
-      // if(isSignedIn && userId && user && !posthog._isIdentified()) {
-      //   posthog.identify(userId, {
-      //     email: user.primaryEmailAddress?.emailAddress,
-      //     username: user.username,
-      //   })
-      // }
     }
   }, [pathname, searchParams, posthog]);
 
   useEffect(() => {
-    console.log('isSignedIn', isSignedIn)
-    console.log('userId', userId)
-    console.log('user', user)
-    console.log('posthog._isIdentified', posthog._isIdentified())
     if(isSignedIn && userId && user && !posthog._isIdentified()) {
-      console.log("IDENTIFYING!!!")
       posthog.identify(userId, {
         email: user.primaryEmailAddress?.emailAddress,
         username: user.username,
