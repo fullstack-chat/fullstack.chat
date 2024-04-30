@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@brianmmdev/clerk-webhooks-handler": "^1.0.1",
+    "@brianmmdev/clerk-webhooks-handler": "^1.0.2",
     "@clerk/nextjs": "^5.0.3",
     "faunadb": "^4.8.0",
     "next": "14.1.3",

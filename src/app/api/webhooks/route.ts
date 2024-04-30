@@ -1,10 +1,6 @@
 import { createWebhooksHandler } from "@brianmmdev/clerk-webhooks-handler";
 
 const handler = createWebhooksHandler({
-  onUserCreated: async (payload) => {
-    // Create a user in the database
-    console.log("user created!", payload)
-  },
   onUserUpdated: async (payload) => {
     // Update a user in the database
     console.log("user updated!", payload)
@@ -16,3 +12,4 @@ const handler = createWebhooksHandler({
 })
 
 export const POST = handler.POST
+
