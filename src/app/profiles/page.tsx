@@ -1,8 +1,8 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { getPublicProfiles } from '../actions'
-import { UserInfo } from '../models'
-import UserProfileCard from '../components/UserProfileCard'
+import { getPublicProfiles } from '../lib/actions'
+import { UserInfo } from '../lib/models'
+import UserProfileCard from '../lib/components/UserProfileCard'
 
 function Profiles() {
   const [profiles, setProfiles] = useState<UserInfo[]>([])

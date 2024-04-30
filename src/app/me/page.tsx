@@ -1,13 +1,13 @@
 'use client'
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { getUserInfo, updateUserInfo } from '../actions'
-import { UserInfo } from '../models'
-import UiCard from '../components/UiCard'
+import { getUserInfo, updateUserInfo } from '../lib/actions'
+import { UserInfo } from '../lib/models'
+import UiCard from '../lib/components/UiCard'
 import Image from 'next/image'
 import LoadingView from '../views/LoadingView'
-import { configurableRoles } from '../data'
+import { configurableRoles } from '../lib/data'
 import toast from 'react-hot-toast'
-import JoinButton from '../components/JoinButton'
+import JoinButton from '../lib/components/JoinButton'
 
 function ProfilePage() {
   const [userInfo, setUserInfo] = useState<UserInfo>()

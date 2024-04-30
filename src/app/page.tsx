@@ -1,7 +1,7 @@
 'use client'
 
-import JoinButton from "./components/JoinButton";
-import UiCard from "./components/UiCard";
+import JoinButton from "./lib/components/JoinButton";
+import UiCard from "./lib/components/UiCard";
 
 export default function Home() {
   return (
