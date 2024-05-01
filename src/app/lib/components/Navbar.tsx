@@ -18,7 +18,7 @@ function Navbar() {
   const [isMenuShown, setIsMenuShown] = useState(false);
 
   return (
-    <nav className="flex items-center">
+    <nav className="flex items-center pb-12">
       <div className="max-w-16 md:max-w-24 mr-auto">
         <Link href="/">
           <img
