@@ -28,7 +28,7 @@ function Navbar() {
           />
         </Link>
       </div>
-      <div className="flex gap-4 ">
+      <div className="flex gap-4 lg:text-lg">
         <Link href="/profiles">Profiles</Link>
         <SignedIn>
           <Link href="/me">My Profile</Link>

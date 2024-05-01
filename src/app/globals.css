@@ -5,7 +5,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.5;
-  @apply bg-[#111] text-zinc-50;
+  @apply bg-[#111] text-zinc-200;
 }
 
 h1,
@@ -14,11 +14,11 @@ h3,
 h4,
 h5,
 h6 {
-  @apply text-balance font-extrabold leading-tight tracking-tighter;
+  @apply text-balance font-extrabold leading-tight tracking-tight text-zinc-50;
 }
 
 h1 {
-  @apply text-4xl md:text-5xl lg:text-6xl;
+  @apply text-4xl md:text-5xl lg:text-6xl tracking-tighter;
 }
 
 h2 {
