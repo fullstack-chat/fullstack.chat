@@ -12,4 +12,3 @@ const handler = createWebhooksHandler({
 })
 
 export const POST = handler.POST
-
