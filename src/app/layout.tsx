@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider, UserButton } from '@clerk/nextjs'
+import { ClerkProvider, UserButton } from "@clerk/nextjs";
 import Navbar from "./lib/components/Navbar";
 import Footer from "./lib/components/Footer";
 import { Toaster } from "react-hot-toast";
-import PHProvider from './lib/PHProvider'
+import PHProvider from "./lib/PHProvider";
 import PostHogPageView from "./lib/PostHogPageView";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "fullstack.chat",
-  description: "A safe space for developers of all backgrounds to learn, grow, and build friendships.",
+  description:
+    "A safe space for developers of all backgrounds to learn, grow, and build friendships.",
 };
 
 export default function RootLayout({
@@ -24,16 +25,14 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <PHProvider>
-          <body className={inter.className}>
-            <Toaster/>
+          <body
+            className={`${inter.className} px-4 py-8 max-w-screen-lg xl:px-0 mx-auto`}
+          >
+            <Toaster />
             <PostHogPageView />
-            <div className="flex justify-center text-white md:mx-0 m-2">
-              <div className="flex flex-col w-full max-w-[960px] px-2">
-                <Navbar />
-                { children }
-                <Footer />
-              </div>
-            </div>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
           </body>
         </PHProvider>
       </html>
