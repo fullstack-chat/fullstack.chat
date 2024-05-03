@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       <section className="text-center grid py-12 lg:py-24">
         <h1 className="mb-8">fullstack.chat</h1>
-        <h2 className="font-normal uppercase text-xl lg:text-2xl">
+        <h2 className="font-normal uppercase text-lg lg:text-xl">
           Our Mission:
         </h2>
         <p className="text-pretty text-2xl lg:text-3xl font-extrabold leading-tight tracking-tight md:text-balance">
@@ -19,7 +19,7 @@ export default function Home() {
 
       <div className="flex flex-col md:grid grid-cols-3 gap-4">
         <div className="col-span-3 flex items-center justify-center text-xl text-center uppercase">
-          <h2 className="font-normal uppercase text-xl lg:text-2xl">
+          <h2 className="font-normal uppercase text-lg lg:text-xl">
             Core principles:
           </h2>
         </div>
