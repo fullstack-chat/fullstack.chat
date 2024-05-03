@@ -28,7 +28,6 @@ const PostHogPageView = () => {
   useEffect(() => {
     // Identify on login
     if(isSignedIn && userId && user && !posthog._isIdentified()) {
-      console.log("IDENTIFYING POSTHOG")
       posthog.identify(userId, {
         email: user.primaryEmailAddress?.emailAddress,
         username: user.username,
@@ -37,7 +36,6 @@ const PostHogPageView = () => {
 
     // Clear on logout
     if(!isSignedIn && posthog._isIdentified()) {
-      console.log("RESETTING POSTHOG")
       posthog.reset()
     }
   }, [posthog, user])
