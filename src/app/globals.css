@@ -3,26 +3,33 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-  padding: 0px 0px 20px 0px;
+  font-family: "Open Sans", sans-serif;
   line-height: 1.5;
-  color: #fefefe;
-  @apply bg-[#111111];
+  @apply bg-[#111] text-zinc-200;
 }
 
-p {
-  padding-bottom: 1rem !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-balance font-extrabold leading-tight tracking-tight text-zinc-50;
 }
 
 h1 {
-  @apply text-4xl pb-3 mb-2 !important;
+  @apply text-4xl md:text-5xl lg:text-6xl tracking-tighter;
 }
 
 h2 {
-  @apply text-2xl !important;
+  @apply text-3xl md:text-4xl lg:text-5xl;
 }
 
 h3 {
-  @apply text-2xl pb-1 mb-2 !important;
+  @apply text-2xl md:text-3xl lg:text-4xl;
+}
+
+.debug {
+  /* Used to help debug CSS layout issues */
+  outline: 1px solid red;
 }

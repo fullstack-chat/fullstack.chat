@@ -1,33 +1,45 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React, { useState } from "react";
+import Link from "next/link";
 
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"
-import { SignIn, SignInButton, UserProfile, useUser, UserButton, SignedIn, SignedOut } from '@clerk/nextjs';
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import {
+  SignIn,
+  SignInButton,
+  UserProfile,
+  useUser,
+  UserButton,
+  SignedIn,
+  SignedOut,
+} from "@clerk/nextjs";
 
 function Navbar() {
-	const [isMenuShown, setIsMenuShown] = useState(false);
+  const [isMenuShown, setIsMenuShown] = useState(false);
 
-	return (
-		<nav className="flex item-center align-center justify-between py-4 px-4">
-			<div className="w-[80px]">
-				<Link href="/">
-					<img alt="fullstack.chat logo" src="/assets/images/logo-2.png" className="logo max-h-[40px]" />
-				</Link>
-			</div>
-			<div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg items-center">
-				<Link href="/profiles">Profiles</Link>
-				<SignedIn>
-					<Link href="/me">My Profile</Link>
-					<UserButton />
-				</SignedIn>
-				<SignedOut>
-					<Link href="/sign-in">Sign In</Link>
-				</SignedOut>
-			</div>
+  return (
+    <nav className="flex items-center pb-12">
+      <div className="max-w-16 md:max-w-24 mr-auto">
+        <Link href="/">
+          <img
+            alt="fullstack.chat logo"
+            src="/assets/images/logo-2.png"
+            className="logo"
+          />
+        </Link>
+      </div>
+      <div className="flex gap-4 lg:text-lg">
+        <Link href="/profiles">Profiles</Link>
+        <SignedIn>
+          <Link href="/me">My Profile</Link>
+          <UserButton />
+        </SignedIn>
+        <SignedOut>
+          <Link href="/sign-in">Sign In</Link>
+        </SignedOut>
+      </div>
 
-			{/* <div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg">
+      {/* <div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg">
 				{ isSignedIn ?
 				<>
 					<Link href="/profile">Profile</Link>
@@ -37,7 +49,7 @@ function Navbar() {
 				}
 			</div> */}
 
-			{/* {!isMenuShown && (
+      {/* {!isMenuShown && (
 				<button
 					className="md:hidden text-white text-3xl"
 					onClick={() => setIsMenuShown(true)}
@@ -83,8 +95,8 @@ function Navbar() {
 					Login
 				</button>
 			</div> */}
-		</nav>
-	);
+    </nav>
+  );
 }
 
 export default Navbar;
