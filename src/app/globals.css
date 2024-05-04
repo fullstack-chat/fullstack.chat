@@ -30,5 +30,6 @@ h3 {
 }
 
 .debug {
+  /* Used to help debug CSS layout issues */
   outline: 1px solid red;
 }

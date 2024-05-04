@@ -1,26 +1,29 @@
-import React from 'react'
-import { UserInfo } from '../models'
-import UiCard from './UiCard'
-import Image from 'next/image'
+import React from "react";
+import { UserInfo } from "../models";
+import UiCard from "./UiCard";
+import Image from "next/image";
 
 type Params = {
-  userInfo: UserInfo
-}
+  userInfo: UserInfo;
+};
 
 function UserProfileCard({ userInfo }: Params) {
   return (
-    <UiCard>
+    <UiCard className="mx-auto  space-y-4 grid place-items-center">
       <Image
-        src={userInfo.imageUrl || '/images/default-profile.png'}
+        src={userInfo.imageUrl || "/images/default-profile.png"}
         width={75}
         height={75}
-        alt={''}
-        className='rounded-full' />
-      <div className='font-bold'>{ userInfo.displayName }</div>
-      <div className='text-sm'>@{ userInfo.username }</div>
-      <div className=''>{ userInfo.tagline }</div>
+        alt={""}
+        className="rounded-full"
+      />
+      <header className="text-center">
+        <p className="font-bold">{userInfo.displayName}</p>
+        <p className="text-sm">@{userInfo.username}</p>
+      </header>
+      <p className="text-center">{userInfo.tagline}</p>
     </UiCard>
-  )
+  );
 }
 
-export default UserProfileCard
+export default UserProfileCard;

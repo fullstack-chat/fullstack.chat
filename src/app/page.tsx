@@ -11,7 +11,7 @@ export default function Home() {
         <h2 className="font-normal uppercase text-lg lg:text-xl">
           Our Mission:
         </h2>
-        <p className="text-pretty text-2xl lg:text-3xl font-extrabold leading-tight tracking-tight md:text-balance">
+        <p className="text-balance text-2xl lg:text-3xl font-extrabold leading-tight tracking-tight max-w-prose">
           Create a safe space for developers of all backgrounds to learn, grow,
           and build friendships.
         </p>
@@ -37,7 +37,7 @@ export default function Home() {
         </UiCard>
       </div>
 
-      <div className="mx-4 my-10 flex items-center justify-center">
+      <div className="py-10 flex items-center justify-center">
         <JoinButton />
       </div>
     </div>
