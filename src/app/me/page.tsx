@@ -103,7 +103,7 @@ function ProfilePage() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <section className="space-y-8">
       {isLoading && <LoadingView />}
       {memberDoesNotExist && (
         <UiCard outerClassName="mt-10 mb-10">
@@ -120,16 +120,17 @@ function ProfilePage() {
       )}
       {!isLoading && !memberDoesNotExist && (
         <>
-          <section className="pb-8">
+          <header className="flex flex-col gap-2">
             <h1>My Profile</h1>
-            <p>
+            <p className="lg:text-lg text-balance md:max-w-prose">
               Here you can change your profile details and add/remove roles that
               will be reflected in the Discord server.
             </p>
-          </section>
-          <div className="grid grid-cols-1 md:grid-cols-3">
+          </header>
+          <section className="flex flex-col gap-4 md:grid md:grid-cols-3">
             <UiCard
-              className="col-span-1 space-y-4 p-2"
+              className="space-y-4 p-2"
+              outerClassName="col-span-1"
               title={userInfo?.username}
             >
               <Image
@@ -140,7 +141,7 @@ function ProfilePage() {
                 className="rounded-full"
               />
               <div className="flex flex-col gap-2">
-                <label>
+                <label htmlFor="displayName">
                   Display name
                   <span className="align-super text-red-400">*</span>
                 </label>
@@ -149,111 +150,123 @@ function ProfilePage() {
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   className="text-black rounded p-1"
+                  name="displayName"
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label>Tagline</label>
+                <label htmlFor="tagline">Tagline</label>
                 <textarea
                   value={tagline}
                   onChange={(e) => setTagline(e.target.value)}
                   className="text-black rounded p-1"
+                  name="tagline"
                 />
               </div>
               <div className="items-center flex gap-2">
-                <label>Display on Profiles?</label>
+                <label className="displayOnProfile">Display on Profiles?</label>
                 <input
                   type="checkbox"
                   checked={isPublic}
                   onChange={(e) => setIsPublic(e.target.checked)}
+                  name="displayOnProfile"
                 />
               </div>
             </UiCard>
             <UiCard
-              className="grid grid-cols-2 gap-4"
-              outerClassName="col-span-2"
+              className="grid md:grid-cols-2 gap-4"
+              outerClassName="md:col-span-2"
               title="Links"
             >
               <div className="flex flex-col gap-2">
-                <label>Website</label>
+                <label htmlFor="website">Website</label>
                 <input
                   type="text"
                   value={website}
                   onChange={(e) => setWebsite(e.target.value)}
                   className="text-black rounded p-1"
+                  name="website"
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label>X/Twitter</label>
+                <label htmlFor="x-twitter">X/Twitter</label>
                 <input
                   type="text"
                   value={twitter}
                   onChange={(e) => setTwitter(e.target.value)}
                   className="text-black rounded p-1"
+                  name="x-twitter"
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label>YouTube</label>
+                <label htmlFor="youtube">YouTube</label>
                 <input
                   type="text"
                   value={youtube}
                   onChange={(e) => setYoutube(e.target.value)}
                   className="text-black rounded p-1"
+                  name="youtube"
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label>Twitch</label>
+                <label htmlFor="twitch">Twitch</label>
                 <input
                   type="text"
                   value={twitch}
                   onChange={(e) => setTwitch(e.target.value)}
                   className="text-black rounded p-1"
+                  name="twitch"
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label>Threads</label>
+                <label htmlFor="threads">Threads</label>
                 <input
                   type="text"
                   value={threads}
                   onChange={(e) => setThreads(e.target.value)}
                   className="text-black rounded p-1"
+                  name="threads"
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label>LinkedIn</label>
+                <label htmlFor="linkedin">LinkedIn</label>
                 <input
                   type="text"
                   value={linkedin}
                   onChange={(e) => setLinkedin(e.target.value)}
                   className="text-black rounded p-1"
+                  name="linkedin"
                 />
               </div>
             </UiCard>
-          </div>
-          <UiCard title="Roles">
-            {configurableRoles.map((role) => (
-              <div key={role.id} className="flex gap-2">
-                <input
-                  type="checkbox"
-                  checked={selectedRoles?.includes(role.id)}
-                  onChange={(e) => handleRoleToggled(role.id, e.target.checked)}
-                  className="text-black rounded p-1"
-                />
-                <label>{role.name}</label>
-              </div>
-            ))}
-          </UiCard>
-          <div className="flex col-span-3">
-            <button
-              onClick={() => save()}
-              disabled={isSaving}
-              className="bg-gradient-to-b from-zinc-800 to-zinc-800 hover:from-zinc-700 hover:to-zinc-800 p-2 rounded transition-all disabled:cursor-not-allowed"
-            >
-              Save
-            </button>
-          </div>
+            <UiCard title="Roles" outerClassName="md:col-span-3">
+              {configurableRoles.map((role) => (
+                <div key={role.id} className="flex gap-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedRoles?.includes(role.id)}
+                    onChange={(e) =>
+                      handleRoleToggled(role.id, e.target.checked)
+                    }
+                    className="text-black rounded p-1"
+                    name={role.name}
+                  />
+                  <label htmlFor={role.name}>{role.name}</label>
+                </div>
+              ))}
+            </UiCard>
+            <div className="grid md:w-fit">
+              <button
+                onClick={() => save()}
+                disabled={isSaving}
+                className="bg-gradient-to-b from-zinc-800 to-zinc-800 hover:from-zinc-700 hover:to-zinc-800 py-4 px-8 rounded transition-all disabled:cursor-not-allowed"
+              >
+                Save
+              </button>
+            </div>
+          </section>
         </>
       )}
-    </div>
+    </section>
   );
 }
 
