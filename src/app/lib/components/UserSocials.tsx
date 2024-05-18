@@ -6,6 +6,7 @@ import YouTubeIcon from "./icons/YouTubeIcon";
 import LinkedinIcon from "./icons/LinkedInIcon";
 import ThreadsIcon from "./icons/ThreadsIcon";
 import TwitchIcon from "./icons/TwitchIcon";
+import Link from "next/link";
 
 type Params = {
   userInfo: UserInfo;
@@ -13,13 +14,49 @@ type Params = {
 
 function UserSocials({ userInfo }: Params) {
   return (
-    <div className="flex w-full text-zinc-200 flex-wrap gap-2 justify-center">
-      {userInfo?.website ? <Globe className="w-10 h-10" /> : null}
-      {userInfo?.twitter ? <XIcon className="w-10 h-10" /> : null}
-      {userInfo?.youtube ? <YouTubeIcon className="w-10 h-10" /> : null}
-      {userInfo?.linkedin ? <LinkedinIcon className="w-10 h-10" /> : null}
-      {userInfo?.threads ? <ThreadsIcon className="w-10 h-10" /> : null}
-      {userInfo?.twitch ? <TwitchIcon className="w-10 h-10" /> : null}
+    <div className="text-zinc-200 flex flex-wrap gap-2 col-span-3">
+      {userInfo?.website ? (
+        <span>
+          <a target="_blank" href={userInfo.website}>
+            <Globe className="w-6 h-6" />
+          </a>
+        </span>
+      ) : null}
+      {userInfo?.twitter ? (
+        <span>
+          <a target="_blank" href={userInfo.twitter}>
+            <XIcon className="w-6 h-6" />
+          </a>
+        </span>
+      ) : null}
+      {userInfo?.youtube ? (
+        <span>
+          <a target="_blank" href={userInfo.youtube}>
+            <YouTubeIcon className="w-6 h-6" />
+          </a>
+        </span>
+      ) : null}
+      {userInfo?.linkedin ? (
+        <span>
+          <a target="_blank" href={userInfo.linkedin}>
+            <LinkedinIcon className="w-6 h-6" />
+          </a>
+        </span>
+      ) : null}
+      {userInfo?.threads ? (
+        <span>
+          <a target="_blank" href={userInfo.threads}>
+            <ThreadsIcon className="w-6 h-6" />
+          </a>
+        </span>
+      ) : null}
+      {userInfo?.twitch ? (
+        <span>
+          <a target="_blank" href={userInfo.twitch}>
+            <TwitchIcon className="w-6 h-6" />
+          </a>
+        </span>
+      ) : null}
     </div>
   );
 }
