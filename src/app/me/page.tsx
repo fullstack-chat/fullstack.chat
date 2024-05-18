@@ -159,7 +159,7 @@ function ProfilePage() {
                   value={tagline}
                   onChange={(e) => setTagline(e.target.value)}
                   className="text-black rounded p-1"
-                  name="tagline"
+                  id="tagline"
                 />
               </div>
               <div className="items-center flex gap-2">

@@ -2,6 +2,7 @@ import React from "react";
 import { UserInfo } from "../models";
 import UiCard from "./UiCard";
 import Image from "next/image";
+import UserSocials from "./UserSocials";
 
 type Params = {
   userInfo: UserInfo;
@@ -9,7 +10,7 @@ type Params = {
 
 function UserProfileCard({ userInfo }: Params) {
   return (
-    <UiCard className="mx-auto  space-y-4 grid place-items-center">
+    <UiCard className="mx-auto space-y-4 grid place-items-center">
       <Image
         src={userInfo.imageUrl || "/images/default-profile.png"}
         width={75}
@@ -22,6 +23,7 @@ function UserProfileCard({ userInfo }: Params) {
         <p className="text-sm">@{userInfo.username}</p>
       </header>
       <p className="text-center">{userInfo.tagline}</p>
+      <UserSocials userInfo={userInfo} />
     </UiCard>
   );
 }
