@@ -1,7 +1,7 @@
 'use client'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { NotionRecord, addRecordToNotion } from './actions'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -24,13 +24,13 @@ import {
 const schema = z.object({
   name: z.string().min(1, { message: 'Required' }),
   email: z.string().email({ message: 'Invalid email' }),
-  twitter: z.string(),
+  twitter: z.string().optional(),
   productName: z.string().min(1, { message: 'Required' }),
   productUrl: z.string().url({ message: 'Invalid URL' }),
-  webapp: z.boolean().nullable(),
-  mobileapp: z.boolean().nullable(),
-  desktopapp: z.boolean().nullable(),
-  devtools: z.boolean().nullable(),
+  webapp: z.boolean().optional(),
+  mobileapp: z.boolean().optional(),
+  desktopapp: z.boolean().optional(),
+  devtools: z.boolean().optional(),
   productDescription: z.string().min(1, { message: 'Required' }),
 });
 
@@ -39,6 +39,14 @@ function Page() {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   });
+
+
+
+  useEffect(() => {
+    console.log(form.formState.errors)
+  }, [form.formState.errors])
+
+
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -160,6 +168,7 @@ function Page() {
                       Web
                     </FormLabel>
                   </div>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -173,6 +182,7 @@ function Page() {
                       Mobile
                     </FormLabel>
                   </div>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -186,6 +196,7 @@ function Page() {
                       Desktop
                     </FormLabel>
                   </div>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -199,6 +210,7 @@ function Page() {
                       Dev tools
                     </FormLabel>
                   </div>
+                  <FormMessage />
                 </FormItem>
               )}
             />
