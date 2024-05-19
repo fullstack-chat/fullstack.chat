@@ -1,5 +1,3 @@
-"use client";
-
 import JoinButton from "./lib/components/JoinButton";
 import UiCard from "./lib/components/UiCard";
 

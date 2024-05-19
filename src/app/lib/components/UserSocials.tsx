@@ -3,10 +3,9 @@ import { UserInfo } from "../models";
 import Globe from "./icons/GlobeIcon";
 import XIcon from "./icons/XIcon";
 import YouTubeIcon from "./icons/YouTubeIcon";
-import LinkedinIcon from "./icons/LinkedInIcon";
+import LinkedinIcon from "./icons/LinkedinIcon";
 import ThreadsIcon from "./icons/ThreadsIcon";
 import TwitchIcon from "./icons/TwitchIcon";
-import Link from "next/link";
 
 type Params = {
   userInfo: UserInfo;
