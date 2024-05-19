@@ -9,13 +9,76 @@ import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group'
 import { Textarea } from '@/components/ui/textarea'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { Path, useForm, UseFormRegister, SubmitHandler } from "react-hook-form"
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+
+const schema = z.object({
+  name: z.string().min(1, { message: 'Required' }),
+  email: z.string().email({ message: 'Invalid email' }),
+  twitter: z.string(),
+  productName: z.string().min(1, { message: 'Required' }),
+  productUrl: z.string().url({ message: 'Invalid URL' }),
+  webapp: z.boolean().nullable(),
+  mobileapp: z.boolean().nullable(),
+  desktopapp: z.boolean().nullable(),
+  devtools: z.boolean().nullable(),
+  productDescription: z.string().min(1, { message: 'Required' }),
+});
 
 function Page() {
   const router = useRouter()
 
   const [isLoading, setIsLoading] = useState(false)
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+  });
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(data: z.infer<typeof schema>) {
+    try {
+      setIsLoading(true)
+      let record: NotionRecord = {
+        yourName: data.name,
+        email: data.email,
+        twitter: data.twitter,
+        productName: data.productName,
+        productUrl: data.productUrl,
+        productType:[],
+        productDescription: data.productDescription,
+      }
+      if (data.webapp) {
+        record.productType?.push('webapp')
+      }
+      if (data.mobileapp) {
+        record.productType?.push('mobileapp')
+      }
+      if (data.desktopapp) {
+        record.productType?.push('desktopapp')
+      }
+      if (data.devtools) {
+        record.productType?.push('devtools')
+      }
+      await addRecordToNotion(record)
+      router.push('/podcast/apply/success')
+    } catch(err) {
+      console.error(err)
+      toast.error("Something went wrong! Reach out to @brianmmdev on Twitter or in the Discord for help.")
+    } finally {
+      setIsLoading(false)
+    }
+
+  }
+
+  async function onSubmit_old(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     try {
       setIsLoading(true)
@@ -48,101 +111,129 @@ function Page() {
         </p>
       </header>
 
-      <form onSubmit={onSubmit} className='flex flex-col gap-2' >
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="name">Your full name</Label>
-          <Input type="text" id="name" name="name" placeholder="Your full name" disabled={isLoading} />
-        </div>
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="email">Email</Label>
-          <Input type="email" id="email" name="email" placeholder="Email" disabled={isLoading} />
-        </div>
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="twitter">Twitter/X handle</Label>
-          <Input type="text" id="twitter" name="twitter" placeholder="@fullstackchat" disabled={isLoading} />
-        </div>
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label className="mb-1">Type of product</Label>
-          <div className="items-top flex space-x-2">
-            <Checkbox disabled={isLoading} id="webapp" name='webapp' />
-            <div className="grid gap-1.5 leading-none">
-              <Label htmlFor="webapp" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" >
-                Web
-              </Label>
-            </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <FormField control={form.control} name="name" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Your name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Your name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField control={form.control} name="email" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="Email address" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField control={form.control} name="twitter" render={({ field }) => (
+              <FormItem>
+                <FormLabel>X/Twitter handle</FormLabel>
+                <FormControl>
+                  <Input placeholder="@fullstackchat" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField control={form.control} name="productName" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Product name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Product name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField control={form.control} name="productUrl" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Product name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Product URL" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField control={form.control} name="productDescription" render={({ field }) => (
+              <FormItem>
+                <FormLabel>Product description</FormLabel>
+                <FormControl>
+                  <Textarea placeholder="What does your product do? What problem does it solve?" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className='border rounded p-4 flex flex-col'>
+            <Label>Product type</Label>
+            <FormField control={form.control} name="webapp" render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4">
+                  <FormControl>
+                    <Checkbox checked={field.value as boolean} onCheckedChange={field.onChange} defaultChecked={false} />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      Web
+                    </FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField control={form.control} name="mobileapp" render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4">
+                  <FormControl>
+                    <Checkbox checked={field.value as boolean} onCheckedChange={field.onChange} defaultChecked={false}  />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      Mobile
+                    </FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField control={form.control} name="desktopapp" render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4">
+                  <FormControl>
+                    <Checkbox checked={field.value as boolean} onCheckedChange={field.onChange} defaultChecked={false}  />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      Desktop
+                    </FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField control={form.control} name="devtools" render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4">
+                  <FormControl>
+                    <Checkbox checked={field.value as boolean} onCheckedChange={field.onChange} defaultChecked={false}  />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      Dev tools
+                    </FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
           </div>
-          <div className="items-top flex space-x-2">
-            <Checkbox disabled={isLoading} id="mobileapp" name='mobileapp' />
-            <div className="grid gap-1.5 leading-none">
-              <Label htmlFor="mobileapp" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" >
-                Mobile
-              </Label>
-            </div>
-          </div>
-          <div className="items-top flex space-x-2">
-            <Checkbox disabled={isLoading} id="desktopapp" name='desktopapp' />
-            <div className="grid gap-1.5 leading-none">
-              <Label htmlFor="desktopapp" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" >
-                Desktop
-              </Label>
-            </div>
-          </div>
-          <div className="items-top flex space-x-2">
-            <Checkbox disabled={isLoading} id="devtools" name='devtools' />
-            <div className="grid gap-1.5 leading-none">
-              <Label htmlFor="devtools" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" >
-                Dev tools
-              </Label>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="productName">Product name</Label>
-          <Input type="text" id="productName" name="productName" placeholder="Product name" disabled={isLoading} />
-        </div>
-
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="productUrl">Product URL</Label>
-          <Input type="text" id="productUrl" name="productUrl" placeholder="Product URL" disabled={isLoading} />
-        </div>
-
-        {/* <div className="grid w-full max-w-sm items-center gap-1.5">
-          <RadioGroup defaultValue="planning" name='phase'>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="planning" id="planning" />
-              <Label htmlFor="planning">Planing</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="indev" id="indev" />
-              <Label htmlFor="indev">In development</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="launched" id="launched" />
-              <Label htmlFor="launched">Launched</Label>
-            </div>
-          </RadioGroup>
-        </div> */}
-
-        {/* <div className="grid w-full max-w-sm items-center gap-1.5">
-          tech used (make this a multiselect and save to tags)
-        </div> */}
-
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="productDescription">Product description</Label>
-          <Textarea placeholder="Product description" id="productDescription" name="productDescription" disabled={isLoading} />
-          <p className="text-sm text-muted-foreground">
-            What does your product do? What problem does it solve?
-          </p>
-
-        </div>
-
-        <div className='flex'>
-          <Button type='submit' disabled={isLoading}>
-            { isLoading ? 'Submitting...' : 'Submit'}
+          <Button type="submit">
+            {isLoading ? 'Submitting...' : 'Submit'}
           </Button>
-        </div>
-      </form>
+        </form>
+      </Form>
+
     </section>
   )
 }
