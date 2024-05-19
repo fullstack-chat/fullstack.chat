@@ -5,11 +5,10 @@ import React, { FormEvent, useState } from 'react'
 import { NotionRecord, addRecordToNotion } from './actions'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group'
 import { Textarea } from '@/components/ui/textarea'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import { Path, useForm, UseFormRegister, SubmitHandler } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -37,11 +36,11 @@ const schema = z.object({
 
 function Page() {
   const router = useRouter()
-
-  const [isLoading, setIsLoading] = useState(false)
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   });
+
+  const [isLoading, setIsLoading] = useState(false)
 
   async function onSubmit(data: z.infer<typeof schema>) {
     try {
@@ -76,30 +75,6 @@ function Page() {
       setIsLoading(false)
     }
 
-  }
-
-  async function onSubmit_old(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    try {
-      setIsLoading(true)
-      const formData = new FormData(event.currentTarget)
-      let data: NotionRecord = {
-        yourName: formData.get('name') as string,
-        email: formData.get('email') as string,
-        twitter: formData.get('twitter') as string,
-        productName: formData.get('productName') as string,
-        productUrl: formData.get('productUrl') as string,
-        productType: ['webapp', 'mobileapp', 'desktopapp', 'devtools'].filter((type) => formData.get(type) === 'on'),
-        productDescription: formData.get('productDescription') as string,
-      }
-      await addRecordToNotion(data)
-      router.push('/podcast/apply/success')
-    } catch(err) {
-      console.error(err)
-      toast.error("Something went wrong! Reach out to @brianmmdev on Twitter for help.")
-    } finally {
-      setIsLoading(false)
-    }
   }
 
   return (
