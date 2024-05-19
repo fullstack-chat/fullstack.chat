@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" className="dark">
         <PHProvider>
           <body
             className={`${inter.className} px-4 py-8 max-w-screen-lg xl:px-0 mx-auto`}
