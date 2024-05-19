@@ -1,13 +1,13 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { configurableRoles } from "../lib/data";
 import { getUserInfo, updateUserInfo } from "../lib/actions";
 import { UserInfo } from "../lib/models";
-import UiCard from "../lib/components/UiCard";
 import Image from "next/image";
-import LoadingView from "../views/LoadingView";
-import { configurableRoles } from "../lib/data";
-import toast from "react-hot-toast";
 import JoinButton from "../lib/components/JoinButton";
+import LoadingView from "../views/LoadingView";
+import toast from "react-hot-toast";
+import UiCard from "../lib/components/UiCard";
 
 function ProfilePage() {
   const [userInfo, setUserInfo] = useState<UserInfo>();
@@ -150,7 +150,7 @@ function ProfilePage() {
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   className="text-black rounded p-1"
-                  name="displayName"
+                  id="displayName"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -159,16 +159,18 @@ function ProfilePage() {
                   value={tagline}
                   onChange={(e) => setTagline(e.target.value)}
                   className="text-black rounded p-1"
-                  name="tagline"
+                  id="tagline"
                 />
               </div>
               <div className="items-center flex gap-2">
-                <label className="displayOnProfile">Display on Profiles?</label>
+                <label htmlFor="displayOnProfile" className="displayOnProfile">
+                  Display on Profiles?
+                </label>
                 <input
                   type="checkbox"
                   checked={isPublic}
                   onChange={(e) => setIsPublic(e.target.checked)}
-                  name="displayOnProfile"
+                  id="displayOnProfile"
                 />
               </div>
             </UiCard>
@@ -184,7 +186,7 @@ function ProfilePage() {
                   value={website}
                   onChange={(e) => setWebsite(e.target.value)}
                   className="text-black rounded p-1"
-                  name="website"
+                  id="website"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -194,7 +196,7 @@ function ProfilePage() {
                   value={twitter}
                   onChange={(e) => setTwitter(e.target.value)}
                   className="text-black rounded p-1"
-                  name="x-twitter"
+                  id="x-twitter"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -204,7 +206,7 @@ function ProfilePage() {
                   value={youtube}
                   onChange={(e) => setYoutube(e.target.value)}
                   className="text-black rounded p-1"
-                  name="youtube"
+                  id="youtube"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -214,7 +216,7 @@ function ProfilePage() {
                   value={twitch}
                   onChange={(e) => setTwitch(e.target.value)}
                   className="text-black rounded p-1"
-                  name="twitch"
+                  id="twitch"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -224,7 +226,7 @@ function ProfilePage() {
                   value={threads}
                   onChange={(e) => setThreads(e.target.value)}
                   className="text-black rounded p-1"
-                  name="threads"
+                  id="threads"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -234,7 +236,7 @@ function ProfilePage() {
                   value={linkedin}
                   onChange={(e) => setLinkedin(e.target.value)}
                   className="text-black rounded p-1"
-                  name="linkedin"
+                  id="linkedin"
                 />
               </div>
             </UiCard>
@@ -248,7 +250,7 @@ function ProfilePage() {
                       handleRoleToggled(role.id, e.target.checked)
                     }
                     className="text-black rounded p-1"
-                    name={role.name}
+                    id={role.name}
                   />
                   <label htmlFor={role.name}>{role.name}</label>
                 </div>
