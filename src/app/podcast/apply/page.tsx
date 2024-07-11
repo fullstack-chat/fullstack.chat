@@ -100,7 +100,7 @@ function Page() {
               <FormItem>
                 <FormLabel>Your name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your name" {...field} />
+                  <Input placeholder="Your full name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -138,7 +138,7 @@ function Page() {
           />
           <FormField control={form.control} name="productUrl" render={({ field }) => (
               <FormItem>
-                <FormLabel>Product name</FormLabel>
+                <FormLabel>Product URL</FormLabel>
                 <FormControl>
                   <Input placeholder="Product URL" {...field} />
                 </FormControl>
