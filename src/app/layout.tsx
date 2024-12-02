@@ -30,7 +30,7 @@ export default function RootLayout({
           >
             <Toaster />
             <PostHogPageView />
-            <Navbar />
+            {/* <Navbar /> */}
             <main>{children}</main>
             <Footer />
           </body>

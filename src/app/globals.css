@@ -73,6 +73,21 @@
   body {
     @apply bg-background text-foreground;
   }
+  a {
+    @apply underline decoration-gray-300 underline-offset-4 transition-colors hover:decoration-gray-800;
+  }
+  ul {
+    @apply list-disc list-inside space-y-2 my-4;
+  }
+  ol {
+    @apply list-decimal list-inside space-y-2 my-4;
+  }
+  ul ul, ol ul {
+    @apply ml-4 my-2;
+  }
+  ol ol, ul ol {
+    @apply ml-4 my-2;
+  }
 }
 
 body {
