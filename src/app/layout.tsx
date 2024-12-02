@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "fullstack.chat",
   description:
-    "A safe space for developers of all backgrounds to learn, grow, and build friendships.",
+    "A weekly interview-style podcast featuring builders from around the community discussing their projects, process, and experiences.",
 };
 
 export default function RootLayout({
