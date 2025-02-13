@@ -26,13 +26,16 @@ export default function RootLayout({
       <html lang="en" className="dark">
         <PHProvider>
           <body
-            className={`${inter.className} px-4 py-8 max-w-screen-lg xl:px-0 mx-auto`}
+            className={`${inter.className} w-full overflow-x-hidden`}
+          >
+            <div className="px-4 py-8 max-w-screen-lg xl:px-0 mx-auto w-full"
           >
             <Toaster />
             <PostHogPageView />
-            {/* <Navbar /> */}
+            <Navbar />
             <main>{children}</main>
             <Footer />
+            </div>
           </body>
         </PHProvider>
       </html>

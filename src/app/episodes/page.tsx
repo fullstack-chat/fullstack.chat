@@ -8,12 +8,7 @@ export default async function EpisodesPage() {
   const episodes = await getPodcastEpisodes();
 
   return (
-    <div className="space-y-8">
-      <nav className="flex items-center mb-8">
-        <Link href="/" className="text-gray-200 hover:text-slate-300">
-          ← Back to Home
-        </Link>
-      </nav>
+    <div className="space-y-8 max-w-full overflow-x-hidden">
       <section className="text-center py-12">
         <div className="mb-6">
           <img src="/assets/images/logo-2.png" alt="fullstack.chat logo" className="mx-auto h-40" />
@@ -27,29 +22,32 @@ export default async function EpisodesPage() {
       <div className="grid gap-6">
         {episodes.map((episode) => (
           <UiCard key={episode.link} title={episode.title}>
-            <div className="space-y-4">
-              <div className="flex items-center gap-4 text-sm text-gray-500">
-                <span>{episode.pubDate}</span>
-                <span>Duration: {episode.duration}</span>
+            <div className="space-y-4 w-full">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-500">
+                <span className="break-words">{episode.pubDate}</span>
+                <span className="break-words">Duration: {episode.duration}</span>
               </div>
-              <div dangerouslySetInnerHTML={{ __html: episode.description }} />
+              <div 
+                dangerouslySetInnerHTML={{ __html: episode.description }} 
+                className="break-words [&>p]:mb-4 [&>p]:break-words last:[&>p]:mb-0 [&>ul]:list-disc [&>ul]:pl-4 [&>ul>li]:pl-2 [&>ul>li]:break-words"
+              />
               
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 <a
                   href={episode.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center"
+                  className="inline-flex items-center hover:text-gray-300 transition-colors break-words"
                 >
-                  View Episode
+                  View Episode →
                 </a>
                 <a
                   href={episode.enclosure.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center"
+                  className="inline-flex items-center hover:text-gray-300 transition-colors break-words"
                 >
-                  Download Audio
+                  Download Audio →
                 </a>
               </div>
             </div>

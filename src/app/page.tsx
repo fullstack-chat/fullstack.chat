@@ -20,29 +20,36 @@ export default async function Home() {
       <section className="flex flex-col gap-4 mb-4">
 
       <UiCard title="Latest episode" className="col-span-2">
-          {episode && (
-            <div className="flex gap-4">
-              <img className="max-h-48 max-w-48 rounded" src={episode.imgUrl} alt={episode.title} />
-              <div className="flex flex-col gap-2">
-                <div className="font-bold text-2xl">{episode.title}</div>
-                <div className="flex items-center gap-4 text-sm text-gray-300">
-                  <span>Published: {episode.pubDate}</span>
-                  <span>Duration: {episode.duration}</span>
-                </div>
-                <div dangerouslySetInnerHTML={{ __html: episode.description }} className="text-gray-200 rounded my-2" />
-                <div className="flex gap-2">
-                  <a href={episode.link} target="_blank" rel="noreferrer">
-                    Listen to episode {'->'}
-                  </a>
-                  <a href="/episodes">
-                    All episodes {'->'}
-                  </a>
+        {episode && (
+          <div className="flex flex-col md:flex-row gap-4">
+            <img 
+              className="w-full md:w-48 h-48 object-cover rounded" 
+              src={episode.imgUrl} 
+              alt={episode.title} 
+            />
+            <div className="flex flex-col gap-2">
+              <div className="font-bold text-xl md:text-2xl break-words">{episode.title}</div>
+              <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 text-sm text-gray-300">
+                <span className="break-words">Published: {episode.pubDate}</span>
+                <span className="break-words">Duration: {episode.duration}</span>
+              </div>
+              <div 
+                dangerouslySetInnerHTML={{ __html: episode.description }} 
+                className="text-gray-200 rounded my-2 break-words [&>p]:mb-4 last:[&>p]:mb-0" 
+              />
+              <div className="flex flex-wrap gap-4">
+                <a href={episode.link} target="_blank" rel="noreferrer" className="hover:underline break-all">
+                  Listen to episode {'->'}
+                </a>
+                <a href="/episodes" className="hover:underline break-all">
+                  All episodes {'->'}
+                </a>
 
-                </div>
               </div>
             </div>
-          )}
-        </UiCard>
+          </div>
+        )}
+      </UiCard>
       </section>
 
       <div className="flex flex-col md:grid grid-cols-2 gap-4 mb-20">

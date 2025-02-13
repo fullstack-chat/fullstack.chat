@@ -18,24 +18,17 @@ function Navbar() {
   const [isMenuShown, setIsMenuShown] = useState(false);
 
   return (
-    <nav className="flex items-center pb-12">
-      <div className="max-w-16 md:max-w-24 mr-auto">
-        <Link href="/">
-          <img
-            alt="fullstack.chat logo"
-            src="/assets/images/logo-2.png"
-            className="logo"
-          />
-        </Link>
-      </div>
-      <div className="flex gap-4 lg:text-lg">
-        <Link href="/profiles">Profiles</Link>
+    <nav className="flex justify-center items-center pb-8">
+      <div className="flex items-center gap-4 text-sm">
+        <Link href="/" className="hover:text-gray-300 transition-colors">Home</Link>
+        <Link href="/episodes" className="hover:text-gray-300 transition-colors">Episodes</Link>
+        <Link href="/profiles" className="hover:text-gray-300 transition-colors">Member Profiles</Link>
         <SignedIn>
-          <Link href="/me">My Profile</Link>
+          <Link href="/me" className="hover:text-gray-300 transition-colors">My Profile</Link>
           <UserButton />
         </SignedIn>
         <SignedOut>
-          <Link href="/sign-in">Sign In</Link>
+          <Link href="/sign-in" className="hover:text-gray-300 transition-colors">Sign In</Link>
         </SignedOut>
       </div>
 
